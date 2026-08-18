@@ -1,0 +1,1354 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey: Modo Carrera Profesional</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900&display=swap');
+
+        body {
+            background: radial-gradient(circle at top, #1a2a3a, #0a1118);
+            color: #f1f2f6;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .contenedor {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(20, 30, 45, 0.85);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1, h2, h3 {
+            color: #f9d976;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+
+        .formulario-inicio {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+            .formulario-inicio input, .formulario-inicio select {
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 8px;
+                border: 1px solid #4a6984;
+                width: 85%;
+                background-color: rgba(10, 20, 30, 0.9);
+                color: white;
+                font-family: 'Montserrat', sans-serif;
+            }
+
+        .campo {
+            background: linear-gradient(0deg, #1e5c3a 0%, #2e8b57 100%);
+            border: 3px solid rgba(255,255,255,0.7);
+            border-radius: 12px;
+            padding: 25px 0;
+            width: 90%;
+            margin: 15px auto;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .linea-campo {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .btn-pos {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #fff;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat';
+        }
+
+            .btn-pos:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.1);
+            }
+
+            .btn-pos.seleccionada {
+                background: linear-gradient(135deg, #f9d976, #e9b646);
+                color: #111;
+                border-color: #fff;
+                transform: scale(1.15);
+                box-shadow: 0 0 15px rgba(249, 217, 118, 0.6);
+            }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-stat {
+            background: linear-gradient(145deg, #1e2a38, #111822);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #2c3e50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .tarjeta-stat span {
+                font-size: 10px;
+                color: #a4b0be;
+                text-transform: uppercase;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+
+            .tarjeta-stat strong {
+                font-size: 20px;
+                color: #f1f2f6;
+                margin-top: 5px;
+                font-weight: 900;
+            }
+
+            .tarjeta-stat.destacada strong {
+                color: #f9d976;
+                font-size: 24px;
+            }
+
+            .tarjeta-stat.dinero strong {
+                color: #2ecc71;
+            }
+
+        .barra-progreso {
+            width: 100%;
+            background: #34495e;
+            border-radius: 5px;
+            height: 6px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .barra-fill {
+            height: 100%;
+            background: #2ecc71;
+            width: 100%;
+            transition: 0.5s;
+        }
+
+        .panel-atributos {
+            display: flex;
+            justify-content: space-evenly;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .attr {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            color: #747d8c;
+            font-weight: bold;
+        }
+
+            .attr strong {
+                color: #fff;
+                font-size: 18px;
+                margin-top: 3px;
+            }
+
+        .historial {
+            background: rgba(10, 15, 20, 0.9);
+            height: 320px;
+            overflow-y: auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            margin-bottom: 20px;
+            border: 1px solid #2c3e50;
+            font-size: 14px;
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+            .historial p {
+                margin: 10px 0;
+                padding-bottom: 12px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                line-height: 1.6;
+            }
+
+        .evento-bueno {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .evento-malo {
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        .titulo-ganado {
+            color: #f9d976;
+            font-weight: bold;
+        }
+
+        .dato-partidos {
+            color: #7bed9f;
+            font-style: italic;
+        }
+
+        .botones-accion {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #0984e3, #0652dd);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Montserrat';
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+            button:hover {
+                filter: brightness(1.2);
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            }
+
+        .btn-avanzar {
+            background: linear-gradient(135deg, #d63031, #b33939);
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+        }
+
+        .btn-tienda {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            color: #111;
+            width: 100%;
+        }
+
+        .btn-retirar {
+            background: #2d3436;
+            color: #a4b0be;
+        }
+
+        .btn-twitter {
+            background: #1DA1F2;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boton-opcion {
+            background: #1e272e;
+            width: 100%;
+            margin-top: 10px;
+            text-align: left;
+            border: 1px solid #485460;
+            font-size: 14px;
+            text-transform: none;
+            line-height: 1.4;
+        }
+
+            .boton-opcion:hover {
+                background: #34495e;
+                border-color: #3498db;
+            }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 20px;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-contenido {
+            background: #111822;
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #4a6984;
+            max-width: 650px;
+            width: 100%;
+            text-align: center;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+        }
+
+        #lista-tienda {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tienda-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: #1e272e;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #2f3640;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .tienda-info {
+            width: 100%;
+        }
+
+            .tienda-info h4 {
+                margin: 0 0 5px 0;
+                color: #fff;
+                font-size: 15px;
+            }
+
+            .tienda-info p {
+                margin: 0 0 10px 0;
+                font-size: 11px;
+                color: #a4b0be;
+                line-height: 1.4;
+                height: 35px;
+                overflow: hidden;
+            }
+
+        .tienda-footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .tienda-precio {
+            font-weight: bold;
+            color: #2ecc71;
+            font-size: 13px;
+        }
+
+        .btn-comprar {
+            padding: 8px 12px;
+            font-size: 12px;
+            background: #2ecc71;
+            border-radius: 6px;
+            letter-spacing: 0;
+        }
+
+            .btn-comprar:disabled {
+                background: #747d8c;
+                cursor: not-allowed;
+                color: #dcdde1;
+            }
+
+        .comprado-badge {
+            color: #f9d976;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .fila-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e272e;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #2f3640;
+        }
+
+        .boton-pequeno {
+            padding: 5px 0;
+            font-size: 18px;
+            background: #2ecc71;
+            margin-left: 5px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .boton-rojo {
+            background: #e74c3c;
+        }
+
+        .tarjeta-leyenda {
+            border: 1px solid #f9d976;
+            background: linear-gradient(135deg, #111822, #1e2a38);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .dato-leyenda {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        .lista-trofeos {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .trofeo-item {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            text-align: center;
+            color: #f9d976;
+            font-weight: bold;
+        }
+    </style>
+
+    <script src="datos.js"></script>
+</head>
+<body onload="cargarPartidaNube()">
+
+    <div class="contenedor" id="pantallaInicio">
+        <h1>Draft Inicial</h1>
+
+        <button id="btnContinuarPartida" onclick="reanudarJuego()" style="display:none; width: 100%; background: linear-gradient(135deg, #2ecc71, #27ae60); margin-bottom: 20px; padding: 18px;">💾 Continuar Carrera Guardada</button>
+
+        <div class="formulario-inicio">
+            <input type="text" id="inNombre" placeholder="Nombre en la camiseta...">
+            <select id="inNacionalidad">
+                <option value="Argentina">🇦🇷 Argentina</option>
+                <option value="Bolivia">🇧🇴 Bolivia</option>
+                <option value="Chile">🇨🇱 Chile</option>
+                <option value="Colombia">🇨🇴 Colombia</option>
+                <option value="Costa Rica">🇨🇷 Costa Rica</option>
+                <option value="Cuba">🇨🇺 Cuba</option>
+                <option value="Ecuador">🇪🇨 Ecuador</option>
+                <option value="El Salvador">🇸🇻 El Salvador</option>
+                <option value="España" selected>🇪🇸 España</option>
+                <option value="Guatemala">🇬🇹 Guatemala</option>
+                <option value="Guinea Ecuatorial">🇬🇶 Guinea Ecuatorial</option>
+                <option value="Honduras">🇭🇳 Honduras</option>
+                <option value="México">🇲🇽 México</option>
+                <option value="Nicaragua">🇳🇮 Nicaragua</option>
+                <option value="Panamá">🇵🇦 Panamá</option>
+                <option value="Paraguay">🇵🇾 Paraguay</option>
+                <option value="Perú">🇵🇪 Perú</option>
+                <option value="Puerto Rico">🇵🇷 Puerto Rico</option>
+                <option value="República Dominicana">🇩🇴 República Dominicana</option>
+                <option value="Uruguay">🇺🇾 Uruguay</option>
+                <option value="Venezuela">🇻🇪 Venezuela</option>
+                <option disabled>──────────</option>
+                <option value="Alemania">🇩🇪 Alemania</option>
+                <option value="Brasil">🇧🇷 Brasil</option>
+                <option value="Francia">🇫🇷 Francia</option>
+                <option value="Inglaterra">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</option>
+                <option value="Italia">🇮🇹 Italia</option>
+                <option value="Portugal">🇵🇹 Portugal</option>
+            </select>
+            <input type="number" id="inDorsal" placeholder="Dorsal favorito (1 al 99)" value="10">
+        </div>
+
+        <h3 style="margin-bottom: 5px; font-size: 14px;">Elige tu Posición (4-3-3)</h3>
+        <div class="campo">
+            <div class="linea-campo">
+                <button class="btn-pos" onclick="seleccionarPosicion('EI', this)">EI</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('DC', this)">DC</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('ED', this)">ED</button>
+            </div>
+            <div class="linea-campo">
+                <button class="btn-pos" onclick="seleccionarPosicion('MCO', this)">MCO</button>
+            </div>
+            <div class="linea-campo">
+                <button class="btn-pos" onclick="seleccionarPosicion('MC', this)">MC</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('MC', this)">MC</button>
+            </div>
+            <div class="linea-campo">
+                <button class="btn-pos" onclick="seleccionarPosicion('LI', this)">LI</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('DFC', this)">DFC</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('DFC', this)">DFC</button>
+                <button class="btn-pos" onclick="seleccionarPosicion('LD', this)">LD</button>
+            </div>
+            <div class="linea-campo">
+                <button class="btn-pos" onclick="seleccionarPosicion('POR', this)">POR</button>
+            </div>
+        </div>
+
+        <button onclick="buscarOfertasIniciales()" style="width: 100%; margin-top: 15px; padding: 18px;">Empezar Nueva Carrera</button>
+    </div>
+
+    <div class="contenedor" id="pantallaJuego" style="display: none;">
+        <h2 id="tituloJugador" style="margin-top: 0;">Jugador</h2>
+
+        <div class="grid-stats">
+            <div class="tarjeta-stat destacada"><span>Media</span><strong id="ui-media">65</strong></div>
+            <div class="tarjeta-stat"><span>Edad</span><strong id="ui-edad">18</strong></div>
+            <div class="tarjeta-stat"><span>Partidos</span><strong id="ui-partidos">0</strong></div>
+            <div class="tarjeta-stat"><span id="label-goles">Goles</span><strong id="ui-goles">0</strong></div>
+            <div class="tarjeta-stat"><span id="label-asis">Asistencias</span><strong id="ui-asis">0</strong></div>
+            <div class="tarjeta-stat dinero"><span>Patrimonio</span><strong id="ui-dinero">0 €</strong></div>
+
+            <div class="tarjeta-stat" style="border-color:#3498db;">
+                <span>Moral</span><strong id="ui-moral-txt">100%</strong>
+                <div class="barra-progreso"><div class="barra-fill" id="ui-moral-bar" style="background:#3498db;"></div></div>
+            </div>
+            <div class="tarjeta-stat" style="border-color:#9b59b6;">
+                <span>Míster</span><strong id="ui-mister-txt">100%</strong>
+                <div class="barra-progreso"><div class="barra-fill" id="ui-mister-bar" style="background:#9b59b6;"></div></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 15px; font-weight: bold; color: #a4b0be; letter-spacing: 1px;">
+            <span id="ui-equipo" style="color: #fff;">---</span> | <span id="ui-liga">---</span> | 🏆 <span id="ui-titulos">0</span> Títulos
+        </div>
+
+        <div class="panel-atributos">
+            <div class="attr"><span id="lbl-s1">Tiro</span><strong id="ui-s1">65</strong></div>
+            <div class="attr"><span id="lbl-s2">Ritmo</span><strong id="ui-s2">70</strong></div>
+            <div class="attr"><span id="lbl-s3">Pase</span><strong id="ui-s3">60</strong></div>
+            <div class="attr"><span id="lbl-s4">Defensa</span><strong id="ui-s4">40</strong></div>
+            <div class="attr"><span id="lbl-s5">Físico</span><strong id="ui-s5">65</strong></div>
+        </div>
+
+        <div class="historial" id="pantallaHistorial"></div>
+
+        <div class="botones-accion">
+            <button class="btn-tienda" onclick="abrirTienda()">🛒 Ir de Compras</button>
+            <button class="btn-retirar" onclick="mostrarRetirada()">Colgar las botas</button>
+        </div>
+        <button class="btn-avanzar" onclick="iniciarTemporada()">Avanzar Temporada ➔</button>
+    </div>
+
+    <div class="modal" id="modalTienda">
+        <div class="modal-contenido" style="max-width: 800px;">
+            <h2>El Escaparate 💎</h2>
+            <p style="color: #a4b0be; font-size: 14px;">Tus inversiones definen tu estatus. Tienes <strong id="dinero-tienda" style="color: #2ecc71;"></strong>.</p>
+            <div id="lista-tienda"></div>
+            <button onclick="document.getElementById('modalTienda').style.display='none'" style="width: 100%; margin-top: 20px; background: #2d3436;">Cerrar Tienda</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalOfertasIniciales">
+        <div class="modal-contenido">
+            <h2>Firma tu Contrato 📝</h2>
+            <p>Elige tu primer destino profesional:</p>
+            <div id="botonesOfertasIniciales"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalEvento">
+        <div class="modal-contenido">
+            <h2 style="color: #f39c12;">Decisión Crítica</h2>
+            <p id="textoEvento" style="font-size: 16px; margin-bottom: 25px;"></p>
+            <button class="boton-opcion" id="btnOpcionA" onclick="resolverEvento(0)"></button>
+            <button class="boton-opcion" id="btnOpcionB" onclick="resolverEvento(1)"></button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalCelebracion">
+        <div class="modal-contenido" style="border-color: #f9d976; background: radial-gradient(circle at center, #2c3e50, #111822);">
+            <h1 style="font-size: 40px; margin-bottom: 5px;">🎊 ¡ENHORABUENA! 🎊</h1>
+            <p style="font-size: 16px; color: #dcdde1; margin-bottom: 20px;">Esta temporada ha sido histórica para tu carrera.</p>
+            <div id="lista-titulos-ganados" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px;"></div>
+            <button onclick="cerrarCelebracion()" style="width: 100%; background: #2ecc71;">Ir a Entrenamientos ➔</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalEntrenamiento">
+        <div class="modal-contenido">
+            <h2>Progreso de Temporada 📈</h2>
+            <p>Puntos de desarrollo disponibles: <strong id="puntosMejora" style="color: #f9d976; font-size: 28px;">0</strong></p>
+
+            <div class="fila-stat">
+                <span>🎯 <span id="lbl-mod-1">Tiro</span> (<span id="mod-s1"></span>)</span>
+                <div><button class="boton-pequeno boton-rojo" onclick="bajarAtributo('s1')">-</button><button class="boton-pequeno" onclick="subirAtributo('s1')">+</button></div>
+            </div>
+            <div class="fila-stat">
+                <span>⚡ <span id="lbl-mod-2">Ritmo</span> (<span id="mod-s2"></span>)</span>
+                <div><button class="boton-pequeno boton-rojo" onclick="bajarAtributo('s2')">-</button><button class="boton-pequeno" onclick="subirAtributo('s2')">+</button></div>
+            </div>
+            <div class="fila-stat">
+                <span>👟 <span id="lbl-mod-3">Pase</span> (<span id="mod-s3"></span>)</span>
+                <div><button class="boton-pequeno boton-rojo" onclick="bajarAtributo('s3')">-</button><button class="boton-pequeno" onclick="subirAtributo('s3')">+</button></div>
+            </div>
+            <div class="fila-stat">
+                <span>🛡️ <span id="lbl-mod-4">Defensa</span> (<span id="mod-s4"></span>)</span>
+                <div><button class="boton-pequeno boton-rojo" onclick="bajarAtributo('s4')">-</button><button class="boton-pequeno" onclick="subirAtributo('s4')">+</button></div>
+            </div>
+            <div class="fila-stat">
+                <span>💪 <span id="lbl-mod-5">Físico</span> (<span id="mod-s5"></span>)</span>
+                <div><button class="boton-pequeno boton-rojo" onclick="bajarAtributo('s5')">-</button><button class="boton-pequeno" onclick="subirAtributo('s5')">+</button></div>
+            </div>
+
+            <button style="margin-top: 25px; width: 100%;" onclick="mostrarMercadoFichajes()">Siguiente: Mercado de Verano ➔</button>
+        </div>
+    </div>
+
+    <div class="modal" id="modalFichajes">
+        <div class="modal-contenido">
+            <h2>Mercado de Verano ✈️</h2>
+            <p id="textoMercado">Los despachos están que arden. ¿Dónde jugarás?</p>
+            <div id="botonesMercado"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalRetiradaFinal">
+        <div class="modal-contenido" style="max-width: 600px;">
+            <h1 style="font-size: 32px; margin-bottom: 5px;">FIN DE CARRERA</h1>
+            <p style="font-size: 16px; font-style: italic; color: #a4b0be;" id="txt-leyenda">El fútbol echará de menos tu magia.</p>
+
+            <div class="tarjeta-leyenda">
+                <h3>Estadísticas Históricas</h3>
+                <div class="dato-leyenda"><span>Media Máxima</span> <strong id="res-media"></strong></div>
+                <div class="dato-leyenda"><span>Partidos Oficiales</span> <strong id="res-partidos"></strong></div>
+                <div class="dato-leyenda"><span id="res-lbl-goles">Goles Totales</span> <strong id="res-goles"></strong></div>
+                <div class="dato-leyenda"><span id="res-lbl-asis">Asistencias Totales</span> <strong id="res-asis"></strong></div>
+                <div class="dato-leyenda"><span style="color:#2ecc71;">Patrimonio Generado</span> <strong id="res-dinero" style="color:#2ecc71;"></strong></div>
+
+                <h4 style="color:#f9d976; margin: 15px 0 5px 0; text-transform: uppercase;">Palmarés y Premios</h4>
+                <div class="lista-trofeos" id="res-trofeos"></div>
+            </div>
+
+            <h3 style="margin-bottom:10px;">Trayectoria</h3>
+            <p id="res-clubes" style="margin: 0 0 20px 0; font-size: 13px; color: #dcdde1; line-height: 1.5;"></p>
+
+            <h2 id="res-rango" style="border: 2px solid #fff; padding: 12px; border-radius: 8px;">ESTRELLA MUNDIAL</h2>
+
+            <button class="btn-twitter" onclick="compartirEnX()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z" /></svg>
+                Presumir de Carrera en X
+            </button>
+            <button onclick="borrarPartida()" style="width: 100%; margin-top: 10px; padding: 15px; background: #2d3436;">Empezar Nueva Carrera</button>
+        </div>
+    </div>
+
+    <script>
+        // --- SISTEMA DE DATOS Y ESTADO DEL JUGADOR ---
+        let jugador = {
+            nombre: "", nacionalidad: "", dorsal: "", posicion: "",
+            equipo: "", liga: "", nivelEquipoActual: 0, clubPropiedad: "",
+            edad: 18, media: 65, puntosActuales: 0, dineroGanadoTotal: 0, // Para registro final
+            partidos: 0, goles: 0, asistencias: 0, porteriasCero: 0,
+            dinero: 0, historialClubes: [], mediaMaxima: 0,
+            moral: 100, confianzaMister: 100,
+            stats: { s1: 60, s2: 60, s3: 60, s4: 60, s5: 60 },
+            statsInvertidos: { s1: 0, s2: 0, s3: 0, s4: 0, s5: 0 },
+            mejoras: { botas: false, nutricion: false, deportivo: false, camara: false, reloj: false, entrenador: false, ong: false, ropa: false, agente: false, esports: false, mansion: false, inmobiliaria: false, jet: false, yate: false, club: false },
+            esWonderkid: false,
+            premios: { balonOro: 0, goldenBoy: 0, botaOro: 0, zamora: 0 },
+            titulosDeta: { liga: 0, copa: 0, supercopaNac: 0, champions: 0, europa: 0, conference: 0, supercopaEur: 0, mundial: 0, continental: 0 }
+        };
+
+        const etiquetasStats = {
+            'POR': ['Reflejos', 'Estirada', 'Saque', 'Colocación', 'Físico'],
+            'CAMPO': ['Tiro', 'Ritmo', 'Pase', 'Defensa', 'Físico']
+        };
+
+        const catalogoTienda = [
+            { id: 'botas', nombre: 'Botas a Medida', desc: '+2 Tiro/Reflejos.', precio: 250000, icono: '👟' },
+            { id: 'nutricion', nombre: 'Chef Privado VIP', desc: '+2 Físico y mejor descanso.', precio: 400000, icono: '🥗' },
+            { id: 'deportivo', nombre: 'Coche Deportivo', desc: '+1 Ritmo. Llegarás rápido a entrenar.', precio: 500000, icono: '🏎️' },
+            { id: 'camara', nombre: 'Cámara Hiperbárica', desc: 'Retrasa declive de edad.', precio: 800000, icono: '🛌' },
+            { id: 'reloj', nombre: 'Reloj de Diamantes', desc: 'Sube tu moral al máximo (+100%).', precio: 1200000, icono: '⌚' },
+            { id: 'entrenador', nombre: 'Entrenador VIP', desc: '+3 Físico y +2 Ritmo.', precio: 1500000, icono: '🏋️' },
+            { id: 'ong', nombre: 'Fundación Benéfica', desc: 'Gana el favor del míster (+100%).', precio: 2000000, icono: '🤝' },
+            { id: 'agente', nombre: 'Agente Top', desc: 'Mejores ofertas mundiales.', precio: 3000000, icono: '👔' },
+            { id: 'ropa', nombre: 'Marca de Ropa', desc: 'Negocio: Genera +1.000.000 € al año.', precio: 4000000, icono: '👕' },
+            { id: 'esports', nombre: 'Club de eSports', desc: 'Negocio: Genera +1.500.000 € al año.', precio: 5000000, icono: '🎮' },
+            { id: 'mansion', nombre: 'Mansión de Lujo', desc: '+15% de minutos jugados.', precio: 6000000, icono: '🏡' },
+            { id: 'inmobiliaria', nombre: 'Fondo Inmobiliario', desc: 'Negocio: +2.500.000 € al año.', precio: 10000000, icono: '🏢' },
+            { id: 'jet', nombre: 'Jet Privado', desc: 'Cero fatiga en viajes. +10% partidos.', precio: 15000000, icono: '✈️' },
+            { id: 'yate', nombre: 'Mega Yate', desc: 'Estatus máximo. Moral siempre 100%.', precio: 20000000, icono: '🛥️' },
+            { id: 'club', nombre: 'Comprar Club Modesto', desc: 'Magnate: Genera +3.500.000 € al año.', precio: 25000000, icono: '🏟️' }
+        ];
+
+        let eventoActual = null;
+        let limitePartidos = 45;
+        let opcionesMercadoTemporales = {};
+
+        // --- GRAN BATERÍA DE EVENTOS (35+ Eventos Grises y Ocultos) ---
+        let eventosNormales = [
+            { texto: "El club te propone una gira promocional por Asia en plena pretemporada.", opcionA: { texto: "Aceptar la gira y ser la imagen del club.", prob: 0.60, exito: { s: "s5", efecto: 1, moral: 20, mister: 10, msg: "La gira fue un éxito comercial y llegaste motivado (+1 Fis)." }, fracaso: { s: "s5", efecto: -3, moral: -10, mister: 0, msg: "El jet lag te destrozó físicamente (-3 Fis)." } }, opcionB: { texto: "Exigir quedarte en la ciudad deportiva entrenando.", prob: 0.50, exito: { s: "s2", efecto: +2, moral: 0, mister: +10, msg: "El trabajo físico dio sus frutos (+2 Ritmo)." }, fracaso: { s: "s3", efecto: -2, moral: -20, mister: -20, msg: "La directiva y el míster te tacharon de egoísta (-2 Pase)." } } },
+            { texto: "Sufres molestias musculares antes del partido más importante del mes.", opcionA: { texto: "Pedir jugar pase lo que pase.", prob: 0.40, exito: { s: "s1", efecto: +3, moral: +20, mister: +20, msg: "Marcaste el gol clave cojeando. Héroe local (+3 Tiro)." }, fracaso: { s: "s2", efecto: -4, moral: -10, mister: -10, cap: 20, msg: "Te rompiste a los 10 minutos. Perdiste medio año (-4 Ritmo)." } }, opcionB: { texto: "Avisar al míster y descansar.", prob: 0.80, exito: { s: "s5", efecto: +1, moral: +10, mister: +10, msg: "Recuperaste al 100% para la liga (+1 Físico)." }, fracaso: { s: "s4", efecto: -2, moral: -20, mister: -10, msg: "Tu sustituto hizo un partidazo y dudas de tu rol (-2 Def)." } } },
+            { texto: "Un compañero joven está brillando mucho en tu misma posición.", opcionA: { texto: "Darle consejos para que mejore.", prob: 0.70, exito: { s: "s3", efecto: +2, moral: +20, mister: +20, msg: "Tu madurez ayuda al equipo (+2 Pase)." }, fracaso: { s: "s1", efecto: -2, moral: -10, mister: -10, cap: 30, msg: "Tus consejos le sirvieron para quitarte el puesto (-2 Tiro)." } }, opcionB: { texto: "Apretar y ser agresivo en los entrenamientos.", prob: 0.55, exito: { s: "s4", efecto: +3, moral: 10, mister: 10, msg: "Esa intensidad elevó tu nivel competitivo (+3 Def)." }, fracaso: { s: "s5", efecto: -3, moral: -20, mister: -20, msg: "Le lesionaste en un rondo. El vestuario te odia (-3 Fis)." } } },
+            { texto: "Filtro de prensa: Un club rival de tu liga te quiere fichar.", opcionA: { texto: "Desmentirlo y jurar lealtad.", prob: 0.75, exito: { s: "s4", efecto: +2, moral: +20, mister: +10, msg: "La afición te idolatra por tu compromiso (+2 Def)." }, fracaso: { s: "s2", efecto: -2, moral: -20, mister: 0, msg: "El club rival se sintió ofendido y fueron a cazarte (-2 Ritmo)." } }, opcionB: { texto: "Callar y dejar que tu agente negocie.", prob: 0.45, exito: { s: "s1", efecto: +2, moral: 10, mister: 0, msg: "El club actual te mimó más en el campo para que te quedes (+2 Tiro)." }, fracaso: { s: "s3", efecto: -3, moral: -20, mister: -30, msg: "La afición te silbó en casa (-3 Pase)." } } },
+            { texto: "Te ofrecen grabar un spot publicitario en tus días libres.", opcionA: { texto: "Aceptar la grabación. Buen dinero.", prob: 0.50, exito: { s: "s3", efecto: +2, moral: +20, mister: 0, msg: "El anuncio fue viral y jugaste sobrado de confianza (+2 Pase)." }, fracaso: { s: "s5", efecto: -3, moral: -10, mister: -10, msg: "Llegaste exhausto a la concentración (-3 Fis)." } }, opcionB: { texto: "Rechazarlo. El descanso es clave.", prob: 0.85, exito: { s: "s5", efecto: +2, moral: 0, mister: +10, msg: "Aprovechaste para desconectar (+2 Fis)." }, fracaso: { s: "s1", efecto: -1, moral: -20, mister: 0, msg: "Te frustró ver a un rival llevarse la campaña (-1 Tiro)." } } },
+            { texto: "Racha de tres partidos sin generar ni un solo gol/asistencia.", opcionA: { texto: "Practicar tiros libres extra tras entrenar.", prob: 0.65, exito: { s: "s1", efecto: +3, moral: +10, mister: +10, msg: "El esfuerzo extra calibró tu puntería (+3 Tiro)." }, fracaso: { s: "s5", efecto: -2, moral: -10, mister: 0, msg: "Sobrecargaste el músculo por chutar tanto (-2 Físico)." } }, opcionB: { texto: "Jugar a la consola con amigos para despejarte.", prob: 0.45, exito: { s: "s3", efecto: +2, moral: +30, mister: 0, msg: "Recuperar la sonrisa te hizo fluir en el césped (+2 Pase)." }, fracaso: { s: "s2", efecto: -2, moral: -20, mister: -10, msg: "Te quedaste hasta las 4 AM jugando (-2 Ritmo)." } } },
+            { texto: "Sufres un robo en tu casa mientras jugabas un partido de Copa.", opcionA: { texto: "Reforzar la seguridad y callar.", prob: 0.85, exito: { s: "s5", efecto: +1, moral: -10, mister: 0, msg: "Solucionaste el problema discretamente." }, fracaso: { s: "s2", efecto: -2, moral: -30, mister: 0, msg: "Vives con miedo y te cuesta dormir (-2 Ritmo)." } }, opcionB: { texto: "Quejarte de la seguridad públicamente.", prob: 0.30, exito: { s: "s4", efecto: +2, moral: +10, mister: 0, msg: "Recibes apoyo masivo (+2 Def)." }, fracaso: { s: "s3", efecto: -3, moral: -20, mister: -20, msg: "El club se molestó por tu tono en prensa (-3 Pase)." } } },
+            { texto: "Te pilla un radar a 200 km/h en un deportivo.", opcionA: { texto: "Pagar multa y pedir perdón interno.", prob: 0.90, exito: { s: "s2", efecto: 0, moral: -10, mister: +10, msg: "Asumes tu culpa y pasas página." }, fracaso: { s: "s5", efecto: -2, moral: -20, mister: -10, msg: "El club te sancionó internamente de todos modos (-2 Fis)." } }, opcionB: { texto: "Negarlo todo y llevarlo a juicio.", prob: 0.20, exito: { s: "s1", efecto: +2, moral: +20, mister: 0, msg: "Ganaste por defecto de forma. Intocable (+2 Tiro)." }, fracaso: { s: "s3", efecto: -4, moral: -40, mister: -40, cap: 30, msg: "Juicio perdido. Escándalo nacional (-4 Pase)." } } },
+            { texto: "Fuerte rumor: El vestuario está dividido en dos bandos.", opcionA: { texto: "Hacer una cena pagando tú para unir.", prob: 0.80, exito: { s: "s3", efecto: +3, moral: +20, mister: +20, msg: "El grupo se unió y el equipo vuela (+3 Pase)." }, fracaso: { s: "s4", efecto: -2, moral: -20, mister: 0, msg: "Fueron tres gatos. Quedaste en ridículo (-2 Def)." } }, opcionB: { texto: "Aislarte de la polémica y jugar.", prob: 0.40, exito: { s: "s1", efecto: +4, moral: +10, mister: 0, msg: "Callaste bocas metiendo goles solo (+4 Tiro)." }, fracaso: { s: "s5", efecto: -4, moral: -30, mister: -30, cap: 20, msg: "Te hicieron la cama en el campo (-4 Físico)." } } },
+            { texto: "Una inversión millonaria en criptomonedas se desploma.", opcionA: { texto: "Asumir la pérdida sin mirar.", prob: 0.90, exito: { s: "s4", efecto: +1, moral: -15, mister: 0, msg: "Te dolió pero sigues centrado (+1 Def)." }, fracaso: { s: "s2", efecto: -3, moral: -40, mister: 0, msg: "El golpe económico te da ansiedad (-3 Ritmo)." } }, opcionB: { texto: "Perder días de entreno reuniéndote con abogados.", prob: 0.25, exito: { s: "s5", efecto: +2, moral: +20, mister: 0, msg: "Recuperaste los fondos y respiraste (+2 Físico)." }, fracaso: { s: "s3", efecto: -3, moral: -30, mister: -30, msg: "Te perdiste entrenos clave y no te convocaron (-3 Pase)." } } },
+            { texto: "Problemas personales graves de un familiar.", opcionA: { texto: "Pedir permiso al club para viajar.", prob: 0.90, exito: { s: "s5", efecto: 0, moral: +20, mister: +10, msg: "Solucionaste el problema familiar (+Moral)." }, fracaso: { s: "s2", efecto: -2, moral: -10, mister: -10, msg: "Volviste totalmente fuera de ritmo (-2 Ritmo)." } }, opcionB: { texto: "Callarte el problema y jugar igual.", prob: 0.30, exito: { s: "s1", efecto: +3, moral: +10, mister: +20, msg: "Canalizaste la rabia y fuiste imparable (+3 Tiro)." }, fracaso: { s: "s4", efecto: -4, moral: -40, mister: 0, msg: "Tenías la cabeza en otra parte, fuiste un coladero (-4 Defensa)." } } },
+            { texto: "Te ofrecen una entrevista en un Podcast muy gamberro en Twitch.", opcionA: { texto: "Ir y ser totalmente sincero sin filtros.", prob: 0.40, exito: { s: "s1", efecto: +3, moral: +30, mister: 0, msg: "A la gente le encantó tu naturalidad (+3 Tiro, +Moral)." }, fracaso: { s: "s3", efecto: -3, moral: -20, mister: -40, msg: "Soltaste una rajada del club sin querer (-3 Pase, -Míster)." } }, opcionB: { texto: "Rechazar para evitar líos mediáticos.", prob: 0.85, exito: { s: "s4", efecto: +1, moral: 0, mister: +10, msg: "Perfil bajo, trabajo alto (+1 Def)." }, fracaso: { s: "s5", efecto: -1, moral: -15, mister: 0, msg: "Te tacharon de aburrido en redes (-1 Fis)." } } },
+            { texto: "Oferta de Arabia/MLS: Te ofrecen cuadruplicar tu sueldo, pero en una liga exótica.", opcionA: { texto: "Rechazar por amor al fútbol competitivo.", prob: 0.80, exito: { s: "s4", efecto: +3, moral: +20, mister: +30, msg: "Tu ambición enamoró al entrenador (+3 Def)." }, fracaso: { s: "s5", efecto: -2, moral: -30, mister: 0, msg: "Dudaste demasiado y la grada te pitó por 'pesetero' (-2 Fis)." } }, opcionB: { texto: "Fichar y pedir cesión automática.", prob: 0.20, exito: { s: "s1", efecto: +4, moral: +40, mister: 0, msg: "Jugada maestra. Dinero y sigues compitiendo (+4 Tiro)." }, fracaso: { s: "s2", efecto: -5, moral: -20, mister: -50, msg: "Se rompió la cesión. El club local te apartó (-5 Ritmo)." } } },
+            { texto: "El césped de tu estadio está destrozado y lleno de agujeros.", opcionA: { texto: "Adaptar tus botas y estilo de juego.", prob: 0.70, exito: { s: "s4", efecto: +3, moral: 0, mister: +10, msg: "Te hiciste un experto en fútbol barro (+3 Def)." }, fracaso: { s: "s2", efecto: -3, moral: -10, mister: 0, msg: "Te torciste el tobillo en un bache (-3 Ritmo)." } }, opcionB: { texto: "Quejarte fuertemente al jardinero.", prob: 0.40, exito: { s: "s3", efecto: +2, moral: +10, mister: +10, msg: "Lo arreglaron al día siguiente (+2 Pase)." }, fracaso: { s: "s1", efecto: -2, moral: -10, mister: -20, msg: "El jardinero te puso a caldo en radio (-2 Tiro)." } } },
+            { texto: "El presidente del club pide una rebaja salarial del 10% a toda la plantilla.", opcionA: { texto: "Aceptar para ayudar a las arcas.", prob: 0.85, exito: { s: "s3", efecto: +2, moral: +10, mister: +20, msg: "Eres el héroe de las oficinas (+2 Pase)." }, fracaso: { s: "s5", efecto: -2, moral: -30, mister: 0, msg: "Te sientes estafado al ver que otros no bajaron (-2 Fis)." } }, opcionB: { texto: "Negarte. Lo firmado es sagrado.", prob: 0.50, exito: { s: "s1", efecto: +2, moral: +10, mister: 0, msg: "Mantuviste tu dinero y jugaste con rabia (+2 Tiro)." }, fracaso: { s: "s4", efecto: -3, moral: -20, mister: -30, msg: "El presi presionó para que no jugaras (-3 Def)." } } },
+            { texto: "Un mito histórico de tu club critica tu forma de jugar en la tele.", opcionA: { texto: "Llamarle en privado para pedir consejo.", prob: 0.65, exito: { s: "s3", efecto: +4, moral: +20, mister: +10, msg: "Te enseñó sus trucos secretos (+4 Pase)." }, fracaso: { s: "s1", efecto: -2, moral: -20, mister: 0, msg: "Te trató con desprecio y te hundió la moral (-2 Tiro)." } }, opcionB: { texto: "Contestarle con un tweet irónico.", prob: 0.35, exito: { s: "s1", efecto: +3, moral: +30, mister: 0, msg: "La grada joven se puso de tu lado (+3 Tiro)." }, fracaso: { s: "s4", efecto: -3, moral: -30, mister: -20, msg: "Causaste una guerra civil en la grada (-3 Def)." } } },
+            { texto: "Llegas tarde al aeropuerto y el equipo casi pierde su vuelo.", opcionA: { texto: "Pedir perdón a todos uno por uno.", prob: 0.90, exito: { s: "s4", efecto: +1, moral: -10, mister: +10, msg: "Te perdonaron por tu humildad (+1 Def)." }, fracaso: { s: "s2", efecto: -2, moral: -20, mister: -20, msg: "El míster te dejó en la grada ese partido (-2 Ritmo)." } }, opcionB: { texto: "Echarle la culpa al tráfico.", prob: 0.20, exito: { s: "s1", efecto: +2, moral: 0, mister: 0, msg: "Te creyeron de milagro (+2 Tiro)." }, fracaso: { s: "s3", efecto: -4, moral: -30, mister: -40, cap: 30, msg: "Nadie te creyó. Perdiste todo el respeto (-4 Pase)." } } },
+            { texto: "Tu pareja te prepara una fiesta sorpresa multitudinaria el martes.", opcionA: { texto: "Disfrutarla un rato y a la cama pronto.", prob: 0.80, exito: { s: "s5", efecto: +2, moral: +30, mister: 0, msg: "Dormiste bien y te sentiste muy querido (+2 Físico)." }, fracaso: { s: "s2", efecto: -2, moral: 0, mister: -10, msg: "Dormiste fatal por el ruido de la limpieza (-2 Ritmo)." } }, opcionB: { texto: "Cerrar la puerta y echarlos a todos.", prob: 0.40, exito: { s: "s4", efecto: +2, moral: -10, mister: +20, msg: "El míster valoró tu profesionalidad extrema (+2 Def)." }, fracaso: { s: "s3", efecto: -3, moral: -40, mister: 0, msg: "Crisis de pareja gravísima, no dabas pie con bola (-3 Pase)." } } },
+            { texto: "Te obligan a cambiar de marca de botas en mitad de temporada.", opcionA: { texto: "Adaptarte rápido usando plantillas.", prob: 0.70, exito: { s: "s2", efecto: +2, moral: 0, mister: 0, msg: "Resultaron ser más ligeras de lo esperado (+2 Ritmo)." }, fracaso: { s: "s1", efecto: -3, moral: -10, mister: 0, msg: "Te salieron ampollas sangrantes (-3 Tiro)." } }, opcionB: { texto: "Pintar tus botas viejas de negro.", prob: 0.50, exito: { s: "s1", efecto: +3, moral: +10, mister: 0, msg: "Nadie se dio cuenta y seguiste marcando (+3 Tiro)." }, fracaso: { s: "s5", efecto: -3, moral: -30, mister: 0, msg: "Te descubrieron y te cayó una multa millonaria (-3 Fis)." } } },
+            { texto: "Pelea física en el túnel de vestuarios tras perder un derbi.", opcionA: { texto: "Separar a los compañeros pacíficamente.", prob: 0.85, exito: { s: "s4", efecto: +2, moral: 0, mister: +20, msg: "Diste ejemplo de capitán (+2 Def)." }, fracaso: { s: "s5", efecto: -2, moral: -10, mister: 0, msg: "Te llevaste un puñetazo perdido (-2 Fis)." } }, opcionB: { texto: "Meterte de lleno a defender a los tuyos.", prob: 0.25, exito: { s: "s5", efecto: +3, moral: +40, mister: +10, msg: "El equipo se unió a muerte tras aquello (+3 Fis)." }, fracaso: { s: "s3", efecto: -5, moral: -30, mister: -40, cap: 20, msg: "Expulsado 5 partidos por agresión (-5 Pase)." } } },
+            { texto: "Te proponen escribir un libro autobiográfico.", opcionA: { texto: "Revisar todo y ser políticamente correcto.", prob: 0.85, exito: { s: "s4", efecto: +1, moral: +10, mister: +10, msg: "Libro aburrido pero sin líos (+1 Def)." }, fracaso: { s: "s2", efecto: -1, moral: -10, mister: 0, msg: "Perdiste mucho tiempo en reuniones editoriales (-1 Ritmo)." } }, opcionB: { texto: "Contar todos los salseos del vestuario.", prob: 0.15, exito: { s: "s1", efecto: +4, moral: +40, mister: 0, msg: "Bestseller mundial. Jugaste con aura de estrella (+4 Tiro)." }, fracaso: { s: "s3", efecto: -5, moral: -50, mister: -50, cap: 15, msg: "Revelaste secretos. Nadie te habla ya (-5 Pase)." } } },
+            { texto: "Un peluquero top te hace un corte de pelo rarísimo y estrambótico.", opcionA: { texto: "Raparte al cero inmediatamente.", prob: 0.70, exito: { s: "s4", efecto: +2, moral: 0, mister: 0, msg: "Look agresivo a lo Pepe, diste miedo a los rivales (+2 Def)." }, fracaso: { s: "s5", efecto: -1, moral: -20, mister: 0, msg: "Te sentías feo y con poca confianza (-1 Fis)." } }, opcionB: { texto: "Dejártelo y vacilar de él.", prob: 0.40, exito: { s: "s1", efecto: +3, moral: +30, mister: 0, msg: "Marcaste tendencia y te sentiste el rey del mundo (+3 Tiro)." }, fracaso: { s: "s3", efecto: -2, moral: -30, mister: -10, msg: "Fuiste el meme de la semana y te afectó (-2 Pase)." } } },
+            { texto: "El míster dice en rueda de prensa que te falta sangre.", opcionA: { texto: "Tragar saliva y correr el doble.", prob: 0.75, exito: { s: "s5", efecto: +3, moral: 0, mister: +30, msg: "Respondiste en el campo de maravilla (+3 Fis)." }, fracaso: { s: "s1", efecto: -2, moral: -20, mister: 0, msg: "Corriste tanto que perdiste finura arriba (-2 Tiro)." } }, opcionB: { texto: "Replicarle que tú hablas en el campo.", prob: 0.35, exito: { s: "s1", efecto: +4, moral: +20, mister: -10, msg: "Saliste picadísimo y marcaste un doblete (+4 Tiro)." }, fracaso: { s: "s3", efecto: -4, moral: -30, mister: -40, cap: 25, msg: "Guerra fría. Te castigó sin convocar (-4 Pase)." } } },
+            { texto: "Partido a -5 grados bajo una tormenta de nieve brutal.", opcionA: { texto: "Jugar con manga corta para imponer respeto.", prob: 0.40, exito: { s: "s5", efecto: +4, moral: +30, mister: +10, msg: "Parecías un vikingo, los defensas se asustaron (+4 Fis)." }, fracaso: { s: "s2", efecto: -4, moral: -10, mister: 0, cap: 35, msg: "Cogiste una neumonía terrible (-4 Ritmo)." } }, opcionB: { texto: "Ponerte mallas térmicas, guantes y cuello.", prob: 0.85, exito: { s: "s4", efecto: +2, moral: 0, mister: 0, msg: "Fuiste listo y aguantaste el partido genial (+2 Def)." }, fracaso: { s: "s1", efecto: -2, moral: -10, mister: 0, msg: "Tanta ropa te hizo estar torpe con el balón (-2 Tiro)." } } },
+            { texto: "Escándalo: Sale a la luz que tu agente cobra comisiones ilegales.", opcionA: { texto: "Despedirlo al instante.", prob: 0.80, exito: { s: "s3", efecto: +2, moral: +10, mister: +10, msg: "Cortaste por lo sano y recuperaste tranquilidad (+2 Pase)." }, fracaso: { s: "s5", efecto: -2, moral: -30, mister: 0, msg: "Tuviste que pasar meses arreglando papeleos (-2 Fis)." } }, opcionB: { texto: "Defenderlo en público. Es tu amigo.", prob: 0.20, exito: { s: "s1", efecto: +2, moral: +20, mister: 0, msg: "Se resolvió sin problema y te sentiste leal (+2 Tiro)." }, fracaso: { s: "s4", efecto: -4, moral: -50, mister: -20, msg: "Te salpicó la trama y perdiste tu prestigio (-4 Def)." } } }
+        ];
+
+        function randomStat(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        function getTotalTitulos() {
+            let t = jugador.titulosDeta;
+            return t.liga + t.copa + t.supercopaNac + t.champions + t.europa + t.conference + t.supercopaEur + t.mundial + t.continental;
+        }
+
+        // --- SISTEMA DE GUARDADO ---
+        function cargarPartidaNube() {
+            let guardado = localStorage.getItem("the_journey_save");
+            if(guardado) { document.getElementById("btnContinuarPartida").style.display = "block"; }
+        }
+        function guardarPartida() { localStorage.setItem("the_journey_save", JSON.stringify(jugador)); }
+        function reanudarJuego() {
+            jugador = JSON.parse(localStorage.getItem("the_journey_save"));
+            document.getElementById("pantallaInicio").style.display = "none";
+            document.getElementById("pantallaJuego").style.display = "block";
+            document.getElementById("tituloJugador").innerText = `${jugador.posicion} | ${jugador.nacionalidad} | ${jugador.nombre} #${jugador.dorsal}`;
+            actualizarPantalla();
+        }
+        function borrarPartida() { localStorage.removeItem("the_journey_save"); location.reload(); }
+
+        // --- INICIO DE JUEGO ---
+        function seleccionarPosicion(pos, btn) {
+            document.querySelectorAll('.btn-pos').forEach(b => b.classList.remove('seleccionada'));
+            btn.classList.add('seleccionada');
+            jugador.posicion = pos;
+            document.getElementById("error-posicion").style.display = "none";
+        }
+
+        function asignarStatsBase() {
+            jugador.esWonderkid = Math.random() < 0.05;
+            let b = jugador.esWonderkid ? 13 : 0;
+
+            let p = jugador.posicion;
+            if (p === 'DC') jugador.stats = { s1: randomStat(65+b, 72+b), s2: randomStat(65+b, 72+b), s3: randomStat(50+b, 60+b), s4: randomStat(25+b, 35+b), s5: randomStat(55+b, 65+b) };
+            else if (p === 'EI' || p === 'ED') jugador.stats = { s1: randomStat(62+b, 70+b), s2: randomStat(68+b, 72+b), s3: randomStat(55+b, 65+b), s4: randomStat(30+b, 40+b), s5: randomStat(50+b, 60+b) };
+            else if (p === 'MCO') jugador.stats = { s1: randomStat(60+b, 68+b), s2: randomStat(60+b, 70+b), s3: randomStat(65+b, 72+b), s4: randomStat(40+b, 50+b), s5: randomStat(50+b, 60+b) };
+            else if (p === 'MC') jugador.stats = { s1: randomStat(55+b, 65+b), s2: randomStat(55+b, 65+b), s3: randomStat(65+b, 72+b), s4: randomStat(60+b, 70+b), s5: randomStat(60+b, 70+b) };
+            else if (p === 'LD' || p === 'LI') jugador.stats = { s1: randomStat(40+b, 50+b), s2: randomStat(68+b, 72+b), s3: randomStat(60+b, 68+b), s4: randomStat(65+b, 72+b), s5: randomStat(60+b, 70+b) };
+            else if (p === 'DFC') jugador.stats = { s1: randomStat(30+b, 40+b), s2: randomStat(50+b, 60+b), s3: randomStat(45+b, 55+b), s4: randomStat(68+b, 72+b), s5: randomStat(68+b, 72+b) };
+            else if (p === 'POR') jugador.stats = { s1: randomStat(68+b, 72+b), s2: randomStat(68+b, 72+b), s3: randomStat(55+b, 65+b), s4: randomStat(65+b, 72+b), s5: randomStat(60+b, 70+b) };
+
+            for(let key in jugador.stats) { if(jugador.stats[key] > 99) jugador.stats[key] = 99; }
+            calcularMedia();
+        }
+
+        function configurarEtiquetasUI() {
+            let tipo = jugador.posicion === 'POR' ? 'POR' : 'CAMPO';
+            let labels = etiquetasStats[tipo];
+            for(let i=1; i<=5; i++) {
+                document.getElementById(`lbl-s${i}`).innerText = labels[i-1];
+                document.getElementById(`lbl-mod-${i}`).innerText = labels[i-1];
+            }
+            if (tipo === 'POR') {
+                document.getElementById("label-goles").innerText = "Port. a 0";
+                document.getElementById("label-asis").style.display = "none";
+                document.getElementById("ui-asis").parentElement.style.display = "none";
+            }
+        }
+
+        function buscarOfertasIniciales() {
+            if(!jugador.posicion) { document.getElementById("error-posicion").style.display = "block"; return; }
+            let inputDorsal = parseInt(document.getElementById("inDorsal").value);
+            if (isNaN(inputDorsal) || inputDorsal < 1 || inputDorsal > 99) { document.getElementById("error-dorsal").style.display = "block"; return; }
+
+            let nom = document.getElementById("inNombre").value.trim();
+            jugador.nombre = nom === "" ? "Jugador" : nom;
+            jugador.nacionalidad = document.getElementById("inNacionalidad").value;
+            jugador.dorsal = inputDorsal;
+
+            asignarStatsBase();
+            configurarEtiquetasUI();
+
+            let equiposModestos = baseDatosEquipos.filter(e => e.nivel >= 69 && e.nivel <= 73);
+            equiposModestos.sort(() => 0.5 - Math.random());
+            let ofertas = [equiposModestos[0], equiposModestos[1], equiposModestos[2]];
+
+            let zonaBotones = document.getElementById("botonesOfertasIniciales");
+            zonaBotones.innerHTML = "";
+            ofertas.forEach(eq => {
+                let nombreLiga = eq.liga ? eq.liga : "Liga";
+                zonaBotones.innerHTML += `<button class="boton-opcion" onclick="ficharPor('${eq.nombre}', ${eq.nivel}, '${nombreLiga}')"><strong>${eq.nombre}</strong><br><span style="color:#a4b0be; font-size:12px;">${nombreLiga} (Nivel ${eq.nivel})</span></button>`;
+            });
+            document.getElementById("modalOfertasIniciales").style.display = "flex";
+        }
+
+        function ficharPor(nombreEquipo, nivel, liga) {
+            jugador.equipo = nombreEquipo;
+            jugador.nivelEquipoActual = nivel;
+            jugador.liga = liga;
+            if(!jugador.historialClubes.includes(nombreEquipo)) jugador.historialClubes.push(nombreEquipo);
+
+            document.getElementById("modalOfertasIniciales").style.display = "none";
+            document.getElementById("pantallaInicio").style.display = "none";
+            document.getElementById("pantallaJuego").style.display = "block";
+            document.getElementById("tituloJugador").innerText = `${jugador.posicion} | ${jugador.nacionalidad} | ${jugador.nombre} #${jugador.dorsal}`;
+
+            if(jugador.esWonderkid) escribirEnPantalla(`🌟 <strong>¡ERES UN GENERACIONAL!</strong> La prensa dice que eres el talento del siglo. Firmas con el <strong>${jugador.equipo}</strong>.`);
+            else escribirEnPantalla(`🌟 <strong>Debut Profesional:</strong> Firmas tu primer contrato con el <strong>${jugador.equipo}</strong>.`);
+
+            actualizarPantalla();
+            guardarPartida();
+        }
+
+        // --- ACTUALIZACIÓN DE UI Y TIENDA ---
+        function formatearDinero(cantidad) { return new Intl.NumberFormat('es-ES').format(cantidad) + " €"; }
+
+        function calcularMedia() {
+            if(jugador.posicion === 'POR') jugador.media = Math.floor((jugador.stats.s1 * 0.4) + (jugador.stats.s2 * 0.3) + (jugador.stats.s4 * 0.2) + (jugador.stats.s5 * 0.1));
+            else if (['DFC', 'LI', 'LD'].includes(jugador.posicion)) jugador.media = Math.floor((jugador.stats.s4 * 0.45) + (jugador.stats.s5 * 0.3) + (jugador.stats.s2 * 0.15) + (jugador.stats.s3 * 0.1));
+            else if (['MC', 'MCO'].includes(jugador.posicion)) jugador.media = Math.floor((jugador.stats.s3 * 0.4) + (jugador.stats.s1 * 0.2) + (jugador.stats.s4 * 0.2) + (jugador.stats.s2 * 0.1) + (jugador.stats.s5 * 0.1));
+            else jugador.media = Math.floor((jugador.stats.s1 * 0.4) + (jugador.stats.s2 * 0.35) + (jugador.stats.s3 * 0.15) + (jugador.stats.s5 * 0.1));
+            if (jugador.media > jugador.mediaMaxima) jugador.mediaMaxima = jugador.media;
+        }
+
+        function actualizarPantalla() {
+            calcularMedia();
+            document.getElementById("ui-edad").innerText = jugador.edad;
+            let displayEquipo = jugador.clubPropiedad !== "" ? `${jugador.equipo} (C)` : jugador.equipo;
+            document.getElementById("ui-equipo").innerText = `${displayEquipo}`;
+            document.getElementById("ui-liga").innerText = jugador.liga;
+            document.getElementById("ui-media").innerText = jugador.media;
+            document.getElementById("ui-partidos").innerText = jugador.partidos;
+            document.getElementById("ui-dinero").innerText = formatearDinero(jugador.dinero);
+            document.getElementById("ui-titulos").innerText = getTotalTitulos();
+
+            if (jugador.mejoras.yate) jugador.moral = 100;
+            document.getElementById("ui-moral-txt").innerText = jugador.moral + "%";
+            document.getElementById("ui-moral-bar").style.width = jugador.moral + "%";
+            document.getElementById("ui-mister-txt").innerText = jugador.confianzaMister + "%";
+            document.getElementById("ui-mister-bar").style.width = jugador.confianzaMister + "%";
+
+            if(jugador.posicion === 'POR') document.getElementById("ui-goles").innerText = jugador.porteriasCero;
+            else { document.getElementById("ui-goles").innerText = jugador.goles; document.getElementById("ui-asis").innerText = jugador.asistencias; }
+
+            for(let i=1; i<=5; i++) document.getElementById(`ui-s${i}`).innerText = jugador.stats[`s${i}`];
+        }
+
+        function escribirEnPantalla(texto) {
+            const p = document.getElementById("pantallaHistorial");
+            p.innerHTML += `<p>${texto}</p>`; p.scrollTop = p.scrollHeight;
+        }
+
+        function abrirTienda() {
+            document.getElementById("dinero-tienda").innerText = formatearDinero(jugador.dinero);
+            const lista = document.getElementById("lista-tienda");
+            lista.innerHTML = "";
+
+            catalogoTienda.forEach(item => {
+                let htmlBtn = "";
+                if (jugador.mejoras[item.id]) {
+                    htmlBtn = `<span class="comprado-badge">✔️ Adquirido</span>`;
+                } else {
+                    let puedeComprar = jugador.dinero >= item.precio;
+                    htmlBtn = `<button class="btn-comprar" ${puedeComprar ? "" : "disabled"} onclick="comprarItem('${item.id}', ${item.precio})">Comprar</button>`;
+                }
+                lista.innerHTML += `
+                    <div class="tienda-item">
+                        <div class="tienda-info">
+                            <h4>${item.icono} ${item.nombre}</h4>
+                            <p>${item.desc}</p>
+                        </div>
+                        <div class="tienda-footer">
+                            <span class="tienda-precio">${formatearDinero(item.precio)}</span>
+                            ${htmlBtn}
+                        </div>
+                    </div>`;
+            });
+            document.getElementById("modalTienda").style.display = "flex";
+        }
+
+        function comprarItem(id, precio) {
+            if (jugador.dinero >= precio && !jugador.mejoras[id]) {
+                jugador.dinero -= precio; jugador.mejoras[id] = true;
+
+                if(id === 'botas') { jugador.stats.s1 += 2; }
+                if(id === 'nutricion') { jugador.stats.s5 += 2; }
+                if(id === 'deportivo') { jugador.stats.s2 += 1; }
+                if(id === 'entrenador') { jugador.stats.s5 += 3; jugador.stats.s2 += 2; }
+                if(id === 'reloj' || id === 'yate') { jugador.moral = 100; }
+                if(id === 'ong') { jugador.confianzaMister = 100; jugador.moral += 20; }
+
+                for(let key in jugador.stats) { if(jugador.stats[key] > 99) jugador.stats[key] = 99; }
+                if (jugador.moral > 100) jugador.moral = 100;
+
+                escribirEnPantalla(`🛍️ Has invertido en: <strong>${catalogoTienda.find(i=>i.id===id).nombre}</strong>.`);
+                actualizarPantalla(); abrirTienda(); guardarPartida();
+            }
+        }
+
+        // --- AVANZAR TEMPORADA Y EVENTOS ---
+        function iniciarTemporada() {
+            if (jugador.edad >= 40 || jugador.media < 45) { mostrarRetirada(); return; }
+            limitePartidos = 45;
+
+            jugador.moral += 15; if (jugador.moral > 100) jugador.moral = 100;
+            if (jugador.mejoras.mansion || jugador.mejoras.yate) jugador.moral = 100;
+
+            if (Math.random() < 0.04 && jugador.edad < 36) {
+                eventoActual = eventoLesionGrave;
+            } else {
+                if (eventosNormales.length === 0) {
+                    // Solo saldrá si juegas muchísimos años (+ de 25 temporadas)
+                    eventoActual = { texto: "Una temporada calmada de principio a fin.", opcionA: { texto: "Foco total", prob: 0.95, exito: { s: "s5", efecto: +1, moral: +10, mister: +10, msg: "Físico perfecto (+1 Fis)." }, fracaso: { s: "s2", efecto: 0, moral: 0, mister: 0, msg: "Sin mejoras (0)." } }, opcionB: { texto: "Dosificar esfuerzos", prob: 0.80, exito: { s: "s2", efecto: +1, moral: +20, mister: -10, msg: "Piernas frescas (+1 Rit)." }, fracaso: { s: "s5", efecto: -1, moral: -10, mister: -10, msg: "Relajación extrema (-1 Fis)." } } };
+                } else {
+                    let indexRandom = Math.floor(Math.random() * eventosNormales.length);
+                    eventoActual = eventosNormales[indexRandom];
+                    eventosNormales.splice(indexRandom, 1);
+                }
+            }
+
+            document.getElementById("textoEvento").innerText = eventoActual.texto;
+            document.getElementById("btnOpcionA").innerText = eventoActual.opcionA.texto;
+            document.getElementById("btnOpcionB").innerText = eventoActual.opcionB.texto;
+            document.getElementById("modalEvento").style.display = "flex";
+        }
+
+        function resolverEvento(opcionElegida) {
+            document.getElementById("modalEvento").style.display = "none";
+            let decision = opcionElegida === 0 ? eventoActual.opcionA : eventoActual.opcionB;
+
+            let fueExito = Math.random() < decision.prob;
+            let resultado = fueExito ? decision.exito : decision.fracaso;
+
+            jugador.stats[resultado.s] += resultado.efecto;
+            jugador.moral += resultado.moral;
+            jugador.confianzaMister += resultado.mister;
+
+            if (jugador.moral > 100) jugador.moral = 100; if (jugador.moral < 0) jugador.moral = 0;
+            if (jugador.confianzaMister > 100) jugador.confianzaMister = 100; if (jugador.confianzaMister < 0) jugador.confianzaMister = 0;
+
+            if (resultado.cap) limitePartidos = resultado.cap;
+
+            for(let key in jugador.stats) {
+                if(jugador.stats[key] > 99) jugador.stats[key] = 99;
+                if(jugador.stats[key] < 30) jugador.stats[key] = 30;
+            }
+
+            jugador.edad++;
+            let textoEdad = "";
+            let bufferEdad = jugador.mejoras.camara ? 2 : 0;
+
+            if (jugador.edad >= (31 + bufferEdad) && jugador.edad < (34 + bufferEdad)) {
+                jugador.stats.s2 -= 1; jugador.stats.s5 -= 1;
+                textoEdad = "<br><span class='evento-malo'>📉 Pasas de los 30. Cansancio (-1 Rit/Fis).</span>";
+            } else if (jugador.edad >= (34 + bufferEdad) && jugador.edad < (35 + bufferEdad)) {
+                jugador.stats.s2 -= 2; jugador.stats.s5 -= 2; jugador.stats.s1 -= 1;
+                textoEdad = "<br><span class='evento-malo'>📉 La veteranía pesa (-2 Rit/Fis, -1 Tiro).</span>";
+            } else if (jugador.edad >= (35 + bufferEdad)) {
+                // MURO DE LOS 35: Desplome absoluto.
+                jugador.stats.s2 -= 5; jugador.stats.s5 -= 5; jugador.stats.s1 -= 3; jugador.stats.s3 -= 2; jugador.stats.s4 -= 2;
+                textoEdad = "<br><span class='evento-malo'>📉 ¡CAÍDA DRÁSTICA! El físico te abandona gravemente al cumplir los 35 (-5 Rit/Fis).</span>";
+            }
+
+            let colorExito = resultado.efecto >= 0 ? 'evento-bueno' : 'evento-malo';
+            let reporte = `🗓️ <strong>Temp. ${jugador.edad} años:</strong><br><span class="${colorExito}">⚡ ${resultado.msg}</span>${textoEdad}<br>`;
+            simularRendimiento(reporte);
+        }
+
+        function simularRendimiento(reporteHTML) {
+            let difNivel = jugador.media - jugador.nivelEquipoActual;
+            let probJugar;
+
+            if (difNivel >= -2) probJugar = 0.85 + (Math.random() * 0.15);
+            else if (difNivel >= -6) probJugar = 0.60 + (Math.random() * 0.25);
+            else if (difNivel >= -10) probJugar = 0.30 + (Math.random() * 0.25);
+            else probJugar = 0.05 + (Math.random() * 0.15);
+
+            if (jugador.confianzaMister < 50) probJugar -= 0.30;
+            if (jugador.confianzaMister < 30) probJugar -= 0.50;
+            if (jugador.confianzaMister >= 90) probJugar += 0.10;
+
+            if (jugador.mejoras.mansion) probJugar += 0.15;
+            if (jugador.mejoras.jet) probJugar += 0.10;
+
+            let partidosTemp = Math.floor(probJugar * limitePartidos);
+            if(partidosTemp > limitePartidos) partidosTemp = limitePartidos;
+            if(partidosTemp < 0) partidosTemp = 0;
+
+            jugador.partidos += partidosTemp;
+            reporteHTML += `<span class="dato-partidos">Disputaste ${partidosTemp} partidos.</span><br>`;
+
+            let factorEquipo = Math.pow((jugador.nivelEquipoActual / 75), 2);
+            let salarioBase = 0;
+            if (jugador.media < 60) salarioBase = 80000;
+            else if (jugador.media < 65) salarioBase = 150000;
+            else if (jugador.media < 70) salarioBase = 350000;
+            else if (jugador.media < 75) salarioBase = 900000;
+            else if (jugador.media < 80) salarioBase = 2500000;
+            else if (jugador.media < 85) salarioBase = 6000000;
+            else if (jugador.media < 90) salarioBase = 12000000;
+            else salarioBase = 20000000;
+
+            let salarioGanado = Math.floor(salarioBase * factorEquipo);
+            if (jugador.mejoras.esports) salarioGanado += 1500000;
+            if (jugador.mejoras.ropa) salarioGanado += 1000000;
+            if (jugador.mejoras.inmobiliaria) salarioGanado += 2500000;
+            if (jugador.mejoras.club) salarioGanado += 5000000;
+
+            jugador.dinero += salarioGanado;
+            reporteHTML += `<span style="color:#2ecc71;">💸 Ingresos: <strong>+${formatearDinero(salarioGanado)}</strong></span><br>`;
+
+            let ptsTemp = 0;
+            let golesTemp = 0, asisTemp = 0, csTemp = 0;
+            let multMoral = 1.0;
+            if(jugador.moral > 80) multMoral = 1.2;
+            if(jugador.moral < 40) multMoral = 0.7;
+
+            if (partidosTemp > 0) {
+                ptsTemp += 1; if (partidosTemp > 25) ptsTemp += 1;
+
+                if (jugador.posicion === 'POR') {
+                    let probCS = (jugador.stats.s1 * 0.5 + jugador.stats.s4 * 0.5) / 100 * 0.45 * multMoral;
+                    csTemp = Math.floor(partidosTemp * probCS) + (Math.floor(Math.random()*4)-2);
+                    if(csTemp < 0) csTemp = 0;
+                    jugador.porteriasCero += csTemp;
+
+                    if(csTemp > 20) ptsTemp += 6; else if (csTemp > 12) ptsTemp += 4; else if (csTemp > 5) ptsTemp += 2;
+                } else {
+                    let fGol = 0, fAsis = 0;
+                    switch(jugador.posicion) {
+                        case 'DC': fGol = 0.6; fAsis = 0.15; break;
+                        case 'EI': case 'ED': fGol = 0.35; fAsis = 0.35; break;
+                        case 'MCO': fGol = 0.25; fAsis = 0.45; break;
+                        case 'MC': fGol = 0.1; fAsis = 0.25; break;
+                        case 'LI': case 'LD': fGol = 0.05; fAsis = 0.25; break;
+                        case 'DFC': fGol = 0.04; fAsis = 0.05; break;
+                    }
+                    let pOfensivo = (jugador.stats.s1 * 0.7 + jugador.stats.s2 * 0.3) / 100 * multMoral;
+                    let pCreacion = (jugador.stats.s3 * 0.8 + jugador.stats.s2 * 0.2) / 100 * multMoral;
+
+                    golesTemp = Math.floor(partidosTemp * fGol * pOfensivo) + (Math.floor(Math.random()*6)-2);
+                    asisTemp = Math.floor(partidosTemp * fAsis * pCreacion) + (Math.floor(Math.random()*5)-2);
+                    if(golesTemp < 0) golesTemp = 0; if(asisTemp < 0) asisTemp = 0;
+
+                    jugador.goles += golesTemp; jugador.asistencias += asisTemp;
+                    reporteHTML += `⚽ <strong>${golesTemp} Goles</strong> y 👟 <strong>${asisTemp} Asistencias</strong>.<br>`;
+
+                    if(golesTemp + asisTemp > 35) ptsTemp += 6; else if (golesTemp + asisTemp > 20) ptsTemp += 4; else if (golesTemp + asisTemp > 8) ptsTemp += 2;
+                }
+            }
+
+            if (jugador.edad <= 21) { ptsTemp += 3; }
+            else if (jugador.edad <= 24) { ptsTemp += 2; }
+            jugador.puntosActuales = ptsTemp;
+
+            // --- SELECCIÓN NACIONAL ---
+            let ganoAlgoHoy = false; let titulosHoy = [];
+            let anioMundial = (jugador.edad % 4 === 0);
+            let anioContinental = ((jugador.edad - 2) % 4 === 0);
+            let isTopNation = ["España", "Francia", "Brasil", "Argentina", "Alemania", "Inglaterra", "Italia", "Portugal"].includes(jugador.nacionalidad);
+
+            if (jugador.media >= 82 && (anioMundial || anioContinental)) {
+                reporteHTML += `<span style="color:#0984e3; font-weight:bold;">✈️ Fuiste convocado por ${jugador.nacionalidad} para el torneo internacional.</span><br>`;
+                let probGanarInt = isTopNation ? 0.15 : 0.03;
+                if (Math.random() < probGanarInt) {
+                    if (anioMundial) { jugador.titulosDeta.mundial++; titulosHoy.push("🌎 🏆 ¡CAMPEÓN DEL MUNDO!"); ganoAlgoHoy = true; }
+                    else { jugador.titulosDeta.continental++; titulosHoy.push("🌍 🏆 ¡CAMPEÓN CONTINENTAL!"); ganoAlgoHoy = true; }
+                }
+            }
+
+            // --- PREMIOS INDIVIDUALES ---
+            if (jugador.edad <= 21 && jugador.media >= 82 && (golesTemp + asisTemp > 20 || csTemp > 12)) {
+                jugador.premios.goldenBoy++; titulosHoy.push("🌟 GOLDEN BOY"); ganoAlgoHoy = true;
+            }
+            if (jugador.media >= 88 && (golesTemp + asisTemp > 38 || csTemp > 22) && Math.random() < 0.35) {
+                jugador.premios.balonOro++; titulosHoy.push("🌕 BALÓN DE ORO"); ganoAlgoHoy = true;
+            }
+            if (golesTemp >= 35) { jugador.premios.botaOro++; titulosHoy.push("🥾 BOTA DE ORO"); ganoAlgoHoy = true; }
+            if (csTemp >= 20 && jugador.posicion === 'POR') { jugador.premios.zamora++; titulosHoy.push("🧤 TROFEO ZAMORA"); ganoAlgoHoy = true; }
+
+            // --- CLUB: LÓGICA DE TÍTULOS ---
+            let nLiga = jugador.liga;
+            let esSegunda = ["LaLiga Hypermotion", "Championship", "Serie B", "2. Bundesliga", "Ligue 2"].includes(nLiga);
+            let nCopa = "Copa Nacional"; let nSuper = "Supercopa";
+            if(nLiga.includes("LaLiga")) { nCopa = "Copa del Rey"; nSuper = "Supercopa de España"; }
+            else if(nLiga.includes("Premier") || nLiga === "Championship") { nCopa = "FA Cup"; nSuper = "Community Shield"; }
+            else if(nLiga.includes("Serie")) { nCopa = "Coppa Italia"; nSuper = "Supercoppa Italiana"; }
+            else if(nLiga.includes("Bundesliga")) { nCopa = "DFB-Pokal"; nSuper = "DFL-Supercup"; }
+            else if(nLiga.includes("Ligue")) { nCopa = "Coupe de France"; nSuper = "Trophée des Champions"; }
+
+            let probLiga = ((jugador.nivelEquipoActual * 0.7) + (jugador.media * 0.3)) / 100 * 0.35;
+
+            if (partidosTemp > 10) {
+                if (Math.random() < probLiga) {
+                    jugador.titulosDeta.liga++; ganoAlgoHoy = true; titulosHoy.push(`🏆 ${nLiga}`);
+                    if (esSegunda) {
+                        let nuevaLiga = "";
+                        if(nLiga === "LaLiga Hypermotion") nuevaLiga = "LaLiga";
+                        if(nLiga === "Championship") nuevaLiga = "Premier League";
+                        if(nLiga === "Serie B") nuevaLiga = "Serie A";
+                        if(nLiga === "2. Bundesliga") nuevaLiga = "Bundesliga";
+                        if(nLiga === "Ligue 2") nuevaLiga = "Ligue 1";
+
+                        jugador.liga = nuevaLiga; jugador.nivelEquipoActual += 5;
+                        reporteHTML += `<br><span style="color:#f39c12; font-weight:bold;">⬆️ ¡ASCENSO! El año que viene jugarás en ${nuevaLiga}.</span><br>`;
+                    }
+                }
+
+                let probCopa = esSegunda ? 0.02 : (probLiga * 0.7);
+                if (Math.random() < probCopa) { jugador.titulosDeta.copa++; ganoAlgoHoy = true; titulosHoy.push(`🏅 ${nCopa}`); }
+                if (!esSegunda && jugador.nivelEquipoActual >= 82 && Math.random() < (probLiga * 0.6)) { jugador.titulosDeta.supercopaNac++; ganoAlgoHoy = true; titulosHoy.push(`🎖️ ${nSuper}`); }
+
+                if (!esSegunda) {
+                    if (jugador.nivelEquipoActual >= 86) {
+                        if (Math.random() < 0.08) { jugador.titulosDeta.champions++; ganoAlgoHoy = true; titulosHoy.push(`🌍 🏆 Champions League`); }
+                        if (Math.random() < 0.05) { jugador.titulosDeta.supercopaEur++; ganoAlgoHoy = true; titulosHoy.push(`🌍 🏅 Supercopa de Europa`); }
+                    } else if (jugador.nivelEquipoActual >= 81 && Math.random() < 0.10) { jugador.titulosDeta.europa++; ganoAlgoHoy = true; titulosHoy.push(`🌍 🥈 Europa League`); }
+                    else if (jugador.nivelEquipoActual >= 78 && Math.random() < 0.12) { jugador.titulosDeta.conference++; ganoAlgoHoy = true; titulosHoy.push(`🌍 🥉 Conference League`); }
+                }
+            }
+
+            escribirEnPantalla(reporteHTML);
+            actualizarPantalla();
+            guardarPartida();
+
+            if (jugador.media < 55 && jugador.edad > 25) {
+                escribirEnPantalla(`<span class="evento-malo">Tu nivel bajó demasiado y te obligan a retirarte profesionalmente.</span>`);
+                setTimeout(mostrarRetirada, 3000);
+            } else {
+                actualizarModalEntrenamiento();
+                if (ganoAlgoHoy) {
+                    let divTitulos = document.getElementById("lista-titulos-ganados");
+                    divTitulos.innerHTML = "";
+                    titulosHoy.forEach(t => {
+                        divTitulos.innerHTML += `<div style="background: rgba(255,215,0,0.15); padding: 10px; border-radius: 8px; border: 1px solid #f9d976; color: #f9d976; font-size: 18px; font-weight: bold;">${t}</div>`;
+                    });
+                    document.getElementById("modalCelebracion").style.display = "flex";
+                } else {
+                    document.getElementById("modalEntrenamiento").style.display = "flex";
+                }
+            }
+        }
+
+        function cerrarCelebracion() {
+            document.getElementById("modalCelebracion").style.display = "none";
+            document.getElementById("modalEntrenamiento").style.display = "flex";
+        }
+
+        // --- ENTRENAMIENTO ---
+        function actualizarModalEntrenamiento() {
+            document.getElementById("puntosMejora").innerText = jugador.puntosActuales;
+            for(let i=1; i<=5; i++) document.getElementById(`mod-s${i}`).innerText = jugador.stats[`s${i}`];
+        }
+
+        function subirAtributo(s) {
+            if (jugador.puntosActuales > 0 && jugador.stats[s] < 99) {
+                jugador.stats[s]++; jugador.puntosActuales--; jugador.statsInvertidos[s]++;
+                actualizarModalEntrenamiento(); actualizarPantalla();
+            }
+        }
+
+        function bajarAtributo(s) {
+            if (jugador.statsInvertidos[s] > 0) {
+                jugador.stats[s]--; jugador.puntosActuales++; jugador.statsInvertidos[s]--;
+                actualizarModalEntrenamiento(); actualizarPantalla();
+            }
+        }
+
+        // --- MERCADO ---
+        function mostrarMercadoFichajes() {
+            document.getElementById("modalEntrenamiento").style.display = "none";
+            jugador.statsInvertidos = { s1: 0, s2: 0, s3: 0, s4: 0, s5: 0 };
+
+            jugador.confianzaMister = 80;
+
+            let botonesContainer = document.getElementById("botonesMercado");
+            botonesContainer.innerHTML = "";
+            opcionesMercadoTemporales = {};
+
+            if (jugador.clubPropiedad !== "") {
+                let eqProp = baseDatosEquipos.find(e => e.nombre === jugador.clubPropiedad);
+                escribirEnPantalla(`🔙 <strong>Fin de cesión:</strong> Vuelves a tu club, el <strong>${jugador.clubPropiedad}</strong>.`);
+                jugador.equipo = jugador.clubPropiedad; jugador.nivelEquipoActual = eqProp.nivel; jugador.liga = eqProp.liga;
+                jugador.clubPropiedad = ""; actualizarPantalla();
+            }
+
+            if (jugador.media > jugador.nivelEquipoActual + 2 && jugador.nivelEquipoActual < 95) jugador.nivelEquipoActual += 1;
+
+            let bonusAgente = jugador.mejoras.agente ? 5 : 0;
+            let rangoBusqueda = jugador.partidos < 15 ? -5 : (+5 + bonusAgente);
+
+            let nivelMinimo = jugador.media > 90 ? 88 : jugador.media - 1;
+            let equiposPosibles = baseDatosEquipos.filter(e => e.nombre !== jugador.equipo && e.nivel <= (jugador.media + rangoBusqueda) && e.nivel >= nivelMinimo);
+            equiposPosibles.sort(() => 0.5 - Math.random());
+
+            botonesContainer.innerHTML += `<button class="boton-opcion" onclick="resolverFichaje('quedarse')">Renovar en <strong>${jugador.equipo}</strong><br><span style="color:#a4b0be; font-size:12px;">Nivel ${jugador.nivelEquipoActual}</span></button>`;
+
+            if(equiposPosibles.length >= 2) {
+                document.getElementById("textoMercado").innerText = "Han llegado ofertas de traspaso acordes a tu nivel.";
+                opcionesMercadoTemporales['fichaje1'] = equiposPosibles[0]; opcionesMercadoTemporales['fichaje2'] = equiposPosibles[1];
+                botonesContainer.innerHTML += `<button class="boton-opcion" onclick="resolverFichaje('fichaje1')">Fichar por <strong>${equiposPosibles[0].nombre}</strong><br><span style="color:#a4b0be; font-size:12px;">${equiposPosibles[0].liga} - Niv. ${equiposPosibles[0].nivel}</span></button>`;
+                botonesContainer.innerHTML += `<button class="boton-opcion" onclick="resolverFichaje('fichaje2')">Fichar por <strong>${equiposPosibles[1].nombre}</strong><br><span style="color:#a4b0be; font-size:12px;">${equiposPosibles[1].liga} - Niv. ${equiposPosibles[1].nivel}</span></button>`;
+            } else {
+                document.getElementById("textoMercado").innerText = "Ningún club de tu exigencia ha presentado ofertas este año.";
+            }
+
+            if (jugador.partidos < 20 && jugador.edad <= 23) {
+                let equiposCesion = baseDatosEquipos.filter(e => e.nivel <= jugador.media + 2 && e.nivel >= 68 && e.nombre !== jugador.equipo);
+                if (equiposCesion.length > 0) {
+                    equiposCesion.sort(() => 0.5 - Math.random());
+                    opcionesMercadoTemporales['cesion'] = equiposCesion[0];
+                    botonesContainer.innerHTML += `<button class="boton-opcion boton-cesion" onclick="resolverFichaje('cesion')">🛫 Salir CEDIDO al <strong>${equiposCesion[0].nombre}</strong> para ganar minutos</button>`;
+                }
+            }
+
+            document.getElementById("modalFichajes").style.display = "flex";
+        }
+
+        function resolverFichaje(opcion) {
+            document.getElementById("modalFichajes").style.display = "none";
+            if (opcion === 'quedarse') {
+                escribirEnPantalla(`🛡️ Continúas en el <strong>${jugador.equipo}</strong>.`);
+            } else if (opcion === 'cesion') {
+                let destino = opcionesMercadoTemporales['cesion'];
+                jugador.clubPropiedad = jugador.equipo;
+                jugador.equipo = destino.nombre; jugador.nivelEquipoActual = destino.nivel; jugador.liga = destino.liga;
+                if(!jugador.historialClubes.includes(destino.nombre + " (C)")) jugador.historialClubes.push(destino.nombre + " (C)");
+                escribirEnPantalla(`🛫 <strong>Cesión:</strong> Te marchas prestado 1 año al <strong>${jugador.equipo}</strong>.`);
+            } else {
+                let destino = opcionesMercadoTemporales[opcion];
+                jugador.equipo = destino.nombre; jugador.nivelEquipoActual = destino.nivel; jugador.liga = destino.liga;
+                if(!jugador.historialClubes.includes(destino.nombre)) jugador.historialClubes.push(destino.nombre);
+                escribirEnPantalla(`✈️ <strong>Traspaso:</strong> Llegas al <strong>${jugador.equipo}</strong>.`);
+            }
+            actualizarPantalla();
+            guardarPartida();
+        }
+
+        // --- RETIRADA Y COMPARTIR EN X ---
+        function mostrarRetirada() {
+            document.getElementById("modalEntrenamiento").style.display = "none";
+            document.getElementById("modalFichajes").style.display = "none";
+            document.getElementById("modalEvento").style.display = "none";
+            document.getElementById("modalCelebracion").style.display = "none";
+
+            document.getElementById("res-media").innerText = jugador.mediaMaxima;
+            document.getElementById("res-partidos").innerText = jugador.partidos;
+            document.getElementById("res-dinero").innerText = formatearDinero(jugador.dinero);
+            document.getElementById("res-clubes").innerText = jugador.historialClubes.join(" ➔ ");
+
+            if(jugador.posicion === 'POR') {
+                document.getElementById("res-lbl-goles").innerText = "Porterías a Cero"; document.getElementById("res-goles").innerText = jugador.porteriasCero;
+                document.getElementById("res-lbl-asis").style.display = "none"; document.getElementById("res-asis").style.display = "none";
+            } else {
+                document.getElementById("res-goles").innerText = jugador.goles; document.getElementById("res-asis").innerText = jugador.asistencias;
+            }
+
+            let vitrina = document.getElementById("res-trofeos");
+            vitrina.innerHTML = "";
+            let t = jugador.titulosDeta; let p = jugador.premios;
+
+            if(t.mundial > 0) vitrina.innerHTML += `<div class="trofeo-item" style="color:#111; border-color:#f9d976; background:#f9d976;">🌎 🏆 ${t.mundial}x Mundial</div>`;
+            if(t.continental > 0) vitrina.innerHTML += `<div class="trofeo-item">🌍 🏆 ${t.continental}x Copa Continental</div>`;
+            if(t.champions > 0) vitrina.innerHTML += `<div class="trofeo-item" style="color:#fff; border-color:#fff; background:rgba(255,255,255,0.1);">🌍 🏆 ${t.champions}x Champions</div>`;
+            if(t.europa > 0) vitrina.innerHTML += `<div class="trofeo-item" style="color:#ff9f43; border-color:#ff9f43; background:rgba(255,159,67,0.1);">🌍 🥈 ${t.europa}x Europa League</div>`;
+            if(t.conference > 0) vitrina.innerHTML += `<div class="trofeo-item" style="color:#1dd1a1; border-color:#1dd1a1; background:rgba(29,209,161,0.1);">🌍 🥉 ${t.conference}x Conference</div>`;
+            if(t.supercopaEur > 0) vitrina.innerHTML += `<div class="trofeo-item">🌍 🏅 ${t.supercopaEur}x Supercopa Eur.</div>`;
+            if(t.liga > 0) vitrina.innerHTML += `<div class="trofeo-item">🏆 ${t.liga}x Ligas</div>`;
+            if(t.copa > 0) vitrina.innerHTML += `<div class="trofeo-item">🏅 ${t.copa}x Copas Nac.</div>`;
+            if(t.supercopaNac > 0) vitrina.innerHTML += `<div class="trofeo-item">🎖️ ${t.supercopaNac}x Supercopas Nac.</div>`;
+
+            if(p.balonOro > 0) vitrina.innerHTML += `<div class="trofeo-item" style="color:#111; background: linear-gradient(135deg, #f9d976, #e9b646);">🌕 ${p.balonOro}x Balón de Oro</div>`;
+            if(p.goldenBoy > 0) vitrina.innerHTML += `<div class="trofeo-item">🌟 ${p.goldenBoy}x Golden Boy</div>`;
+            if(p.botaOro > 0) vitrina.innerHTML += `<div class="trofeo-item">🥾 ${p.botaOro}x Bota de Oro</div>`;
+            if(p.zamora > 0) vitrina.innerHTML += `<div class="trofeo-item">🧤 ${p.zamora}x Guante de Oro</div>`;
+
+            if (getTotalTitulos() === 0 && p.balonOro === 0 && p.goldenBoy === 0 && p.botaOro === 0 && p.zamora === 0) {
+                vitrina.innerHTML = `<div style="grid-column: span 2; color: #a4b0be; text-align: center;">No ganaste ningún trofeo oficial.</div>`;
+            }
+
+            let rango = ""; let color = "";
+            if (jugador.mediaMaxima < 70) { rango = "FRACASO DEPORTIVO"; color = "#ff4757"; }
+            else if (jugador.mediaMaxima < 80) { rango = "JUGADOR DE CULTO"; color = "#3498db"; }
+            else if (jugador.mediaMaxima < 90) { rango = "ÍDOLO MUNDIAL"; color = "#f1c40f"; }
+            else { rango = "LEYENDA DE LA HISTORIA"; color = "#f9d976"; }
+
+            let lblRango = document.getElementById("res-rango");
+            lblRango.innerText = rango; lblRango.style.color = color; lblRango.style.borderColor = color;
+
+            document.getElementById("modalRetiradaFinal").style.display = "flex";
+        }
+
+        function compartirEnX() {
+            let rangoStr = document.getElementById("res-rango").innerText;
+            let titulos = getTotalTitulos() + jugador.premios.balonOro;
+            let nom = jugador.nombre || "Jugador";
+
+            let textoTweet = `¡Acabo de colgar las botas como ${rangoStr} en The Journey! ⚽\n\n`;
+            textoTweet += `👤 ${nom} (${jugador.mediaMaxima} Media)\n`;
+            if (jugador.premios.balonOro > 0) textoTweet += `🌕 ${jugador.premios.balonOro}x Balón de Oro\n`;
+            if (jugador.titulosDeta.mundial > 0) textoTweet += `🌎 ${jugador.titulosDeta.mundial}x Mundial\n`;
+            textoTweet += `🏆 ${titulos} Trofeos totales\n`;
+            textoTweet += `💰 ${formatearDinero(jugador.dinero)}\n\n`;
+            textoTweet += `¿Puedes superar mi carrera? 👇\nJuega aquí (Creado por @pablolud): https://pablolud.github.io/tu-repo`;
+
+            let url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(textoTweet)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
